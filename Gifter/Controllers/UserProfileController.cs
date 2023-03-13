@@ -1,4 +1,5 @@
 ﻿using Gifter.Repositories;
+using Gifter.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,5 +32,12 @@ public class UserProfileController : ControllerBase
             return NotFound();
         }
         return Ok(user);
+    }
+
+    [HttpPost]
+    public IActionResult AddUser(UserProfile userProfile)
+    {
+        _userProfileRepository.AddUser(userProfile);
+        return CreatedAtAction("Get", new {id = userProfile.Id}, userProfile);
     }
 }

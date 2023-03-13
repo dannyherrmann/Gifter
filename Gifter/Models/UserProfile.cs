@@ -14,9 +14,9 @@ namespace Gifter.Models
         [Required]
         public string Email { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; } = null;
 
-        public string Bio { get; set; }
+        public string? Bio { get; set; } = null;
 
         [Required]
         public DateTime DateCreated { get; set; }

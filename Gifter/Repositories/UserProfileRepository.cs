@@ -89,4 +89,40 @@ public class UserProfileRepository : BaseRepository, IUserProfileRepository
         }
     }
 
+    public void AddUser(UserProfile userProfile)
+    {
+        using (var conn = Connection)
+        {
+            conn.Open();
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                    insert into UserProfile ([Name], Email, ImageUrl, Bio, DateCreated)
+                    output inserted.id
+                    values (@name, @email, @imageurl, @bio, @datecreated)";
+                DbUtils.AddParameter(cmd, "Name", userProfile.Name);
+                DbUtils.AddParameter(cmd, "Email", userProfile.Email);
+                DbUtils.AddParameter(cmd, "DateCreated", userProfile.DateCreated);
+                if (userProfile.ImageUrl == null)
+                {
+                    DbUtils.AddParameter(cmd, "ImageUrl", DBNull.Value);
+                }
+                else
+                {
+                    DbUtils.AddParameter(cmd, "ImageUrl", userProfile.ImageUrl);
+                }
+                if (userProfile.Bio == null)
+                {
+                    DbUtils.AddParameter(cmd, "Bio", DBNull.Value);
+                }
+                else
+                {
+                    DbUtils.AddParameter(cmd, "Bio", userProfile.Bio);
+                }
+
+                userProfile.Id = (int)cmd.ExecuteScalar();
+            }
+        }
+    }
+
 }

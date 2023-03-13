@@ -7,7 +7,7 @@ export class Home extends Component {
     return (
         <div>
             <h1 className="text-3xl font-bold underline">Welcome to Gifter</h1>
-      </div>
+        </div>
     );
   }
 }
