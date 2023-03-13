@@ -14,5 +14,7 @@ namespace Gifter.Repositories
 
         void Delete(int id);
 
+        Post GetPostByIdWithComments(int id);
+
     }
 }

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
+builder.Services.AddTransient<IUserProfileRepository, UserProfileRepository>();
 
 var app = builder.Build();
 
